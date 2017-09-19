@@ -64,7 +64,7 @@ class Multiplexer:
 			exit(1)
 
 	def __enter__(self):
-        return self		
+        	return self		
 			
 			
 	def SelectChannel(self, channel):
