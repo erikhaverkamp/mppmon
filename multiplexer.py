@@ -14,14 +14,14 @@ from Phidget22.Net import *
 class Multiplexer:
 	def __init__(self):
 		try:
-			ch0 = DigitalOutput()
-			ch1 = DigitalOutput()
-			ch2 = DigitalOutput()
-			ch3 = DigitalOutput()
-			ch4 = DigitalOutput()
-			ch5 = DigitalOutput()
-			ch6 = DigitalOutput()
-			ch7 = DigitalOutput()
+			self.ch0 = DigitalOutput()
+			self.ch1 = DigitalOutput()
+			self.ch2 = DigitalOutput()
+			self.ch3 = DigitalOutput()
+			self.ch4 = DigitalOutput()
+			self.ch5 = DigitalOutput()
+			self.ch6 = DigitalOutput()
+			self.ch7 = DigitalOutput()
 		except RuntimeError as e:
 			print("Runtime Exception %s" % e.details)
 			print("Press Enter to Exit...\n")
@@ -32,31 +32,31 @@ class Multiplexer:
 			print("Error %i : %s" % (eCode, description))
 
 		try:
-			ch0.setOnErrorHandler(ErrorEvent)
-			ch1.setOnErrorHandler(ErrorEvent)
-			ch2.setOnErrorHandler(ErrorEvent)
-			ch3.setOnErrorHandler(ErrorEvent)
-			ch4.setOnErrorHandler(ErrorEvent)
-			ch5.setOnErrorHandler(ErrorEvent)
-			ch6.setOnErrorHandler(ErrorEvent)
-			ch7.setOnErrorHandler(ErrorEvent)
-			ch0.setChannel(0);
-			ch1.setChannel(1);
-			ch2.setChannel(2);
-			ch3.setChannel(3);
-			ch4.setChannel(4);
-			ch5.setChannel(5);
-			ch6.setChannel(6);
-			ch7.setChannel(7);
+			self.ch0.setOnErrorHandler(ErrorEvent)
+			self.ch1.setOnErrorHandler(ErrorEvent)
+			self.ch2.setOnErrorHandler(ErrorEvent)
+			self.ch3.setOnErrorHandler(ErrorEvent)
+			self.ch4.setOnErrorHandler(ErrorEvent)
+			self.ch5.setOnErrorHandler(ErrorEvent)
+			self.ch6.setOnErrorHandler(ErrorEvent)
+			self.ch7.setOnErrorHandler(ErrorEvent)
+			self.ch0.setChannel(0);
+			self.ch1.setChannel(1);
+			self.ch2.setChannel(2);
+			self.ch3.setChannel(3);
+			self.ch4.setChannel(4);
+			self.ch5.setChannel(5);
+			self.ch6.setChannel(6);
+			self.ch7.setChannel(7);
 			print("Waiting for the Phidget DigitalOutput Objects to be attached...")
-			ch0.openWaitForAttachment(5000)
-			ch1.openWaitForAttachment(5000)
-			ch2.openWaitForAttachment(5000)
-			ch3.openWaitForAttachment(5000)
-			ch4.openWaitForAttachment(5000)
-			ch5.openWaitForAttachment(5000)
-			ch6.openWaitForAttachment(5000)
-			ch7.openWaitForAttachment(5000)
+			self.ch0.openWaitForAttachment(5000)
+			self.ch1.openWaitForAttachment(5000)
+			self.ch2.openWaitForAttachment(5000)
+			self.ch3.openWaitForAttachment(5000)
+			self.ch4.openWaitForAttachment(5000)
+			self.ch5.openWaitForAttachment(5000)
+			self.ch6.openWaitForAttachment(5000)
+			self.ch7.openWaitForAttachment(5000)
 		except PhidgetException as e:
 			print("Phidget Exception %i: %s" % (e.code, e.details))
 			print("Press Enter to Exit...\n")
@@ -68,43 +68,43 @@ class Multiplexer:
 			
 			
 	def SelectChannel(self, channel):
-		ch0.setState(0)
-		ch1.setState(0)
-		ch2.setState(0)
-		ch3.setState(0)
-		ch4.setState(0)
-		ch5.setState(0)
-		ch6.setState(0)
-		ch7.setState(0)
+		self.ch0.setState(0)
+		self.ch1.setState(0)
+		self.ch2.setState(0)
+		self.ch3.setState(0)
+		self.ch4.setState(0)
+		self.ch5.setState(0)
+		self.ch6.setState(0)
+		self.ch7.setState(0)
 		
 		if channel == 0:
-			ch0.setState(1)
+			self.ch0.setState(1)
 		if channel == 1:
-			ch1.setState(1)
+			self.ch1.setState(1)
 		if channel == 2:
-			ch2.setState(1)
+			self.ch2.setState(1)
 		if channel == 3:
-			ch3.setState(1)
+			self.ch3.setState(1)
 		if channel == 4:
-			ch4.setState(1)
+			self.ch4.setState(1)
 		if channel == 5:
-			ch5.setState(1)
+			self.ch5.setState(1)
 		if channel == 6:
-			ch6.setState(1)
+			self.ch6.setState(1)
 		if channel == 7:
-			ch7.setState(1)
+			self.ch7.setState(1)
 		
 
 	def __exit__(self, exc_type, exc_value, traceback):
 		try:
-			ch0.close()
-			ch1.close()
-			ch2.close()
-			ch3.close()
-			ch4.close()
-			ch5.close()
-			ch6.close()
-			ch7.close()
+			self.ch0.close()
+			self.ch1.close()
+			self.ch2.close()
+			self.ch3.close()
+			self.ch4.close()
+			self.ch5.close()
+			self.ch6.close()
+			self.ch7.close()
 		except PhidgetException as e:
 			print("Phidget Exception %i: %s" % (e.code, e.details))
 			print("Press Enter to Exit...\n")
