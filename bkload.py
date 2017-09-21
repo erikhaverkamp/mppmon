@@ -49,6 +49,9 @@ class IvTracer:
         result = []
         start = self.get_voc()
         print('start: %f' % (start))
+        if start < 3:
+	    print('voc too low')
+            return {}
         step = start / points
         print('step: %f' % (step))
         self.set_voltage(0.4)

@@ -2,14 +2,9 @@ from Phidget22.Devices.DigitalOutput import *
 from Phidget22.Net import *
 
 
-# call multiplexer by using with statement:
-#
-#	with Multiplexer() as mp:
-#		mp.SelectChannel(3)
-
-
 class Multiplexer:
     def __init__(self):
+	print('init mp')
         try:
             self.ch0 = DigitalOutput()
             self.ch1 = DigitalOutput()
@@ -60,51 +55,48 @@ class Multiplexer:
             readin = sys.stdin.read(1)
             exit(1)
 
-        def __enter__(self):
-            return self
+    def SelectChannel(self, channel):
+        self.ch0.setState(0)
+        self.ch1.setState(0)
+        self.ch2.setState(0)
+        self.ch3.setState(0)
+        self.ch4.setState(0)
+        self.ch5.setState(0)
+        self.ch6.setState(0)
+        self.ch7.setState(0)
 
-        def SelectChannel(self, channel):
-            self.ch0.setState(0)
-            self.ch1.setState(0)
-            self.ch2.setState(0)
-            self.ch3.setState(0)
-            self.ch4.setState(0)
-            self.ch5.setState(0)
-            self.ch6.setState(0)
-            self.ch7.setState(0)
+        if channel < 0:
+            return
+        if channel == 0:
+            self.ch0.setState(1)
+        if channel == 1:
+            self.ch1.setState(1)
+        if channel == 2:
+            self.ch2.setState(1)
+        if channel == 3:
+            self.ch3.setState(1)
+        if channel == 4:
+            self.ch4.setState(1)
+        if channel == 5:
+            self.ch5.setState(1)
+        if channel == 6:
+            self.ch6.setState(1)
+        if channel == 7:
+            self.ch7.setState(1)
 
-            if channel < 0:
-                return
-            if channel == 0:
-                self.ch0.setState(1)
-            if channel == 1:
-                self.ch1.setState(1)
-            if channel == 2:
-                self.ch2.setState(1)
-            if channel == 3:
-                self.ch3.setState(1)
-            if channel == 4:
-                self.ch4.setState(1)
-            if channel == 5:
-                self.ch5.setState(1)
-            if channel == 6:
-                self.ch6.setState(1)
-            if channel == 7:
-                self.ch7.setState(1)
-
-        def __exit__(self, exc_type, exc_value, traceback):
-            try:
-                self.ch0.close()
-                self.ch1.close()
-                self.ch2.close()
-                self.ch3.close()
-                self.ch4.close()
-                self.ch5.close()
-                self.ch6.close()
-                self.ch7.close()
-            except PhidgetException as e:
-                print("Phidget Exception %i: %s" % (e.code, e.details))
-                print("Press Enter to Exit...\n")
-                readin = sys.stdin.read(1)
-                exit(1)
-            print("Closed DigitalOutput device")
+    def close(self):
+        try:
+            self.ch0.close()
+            self.ch1.close()
+            self.ch2.close()
+            self.ch3.close()
+            self.ch4.close()
+            self.ch5.close()
+            self.ch6.close()
+            self.ch7.close()
+        except PhidgetException as e:
+            print("Phidget Exception %i: %s" % (e.code, e.details))
+            print("Press Enter to Exit...\n")
+            readin = sys.stdin.read(1)
+            exit(1)
+        print("Closed DigitalOutput device")

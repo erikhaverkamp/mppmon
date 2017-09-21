@@ -72,7 +72,7 @@ class InstrumentInterface:
     # Values for setting modes of CC, CV, CW, or CR
     modes = {"cc":0, "cv":1, "cw":2, "cr":3}
     def Initialize(self, com_port, baudrate, address=0):
-        self.sp = serial.Serial(com_port-1, baudrate)
+        self.sp = serial.Serial(com_port, baudrate)
         self.address = address
     def DumpCommand(self, bytes):
         '''Print out the contents of a 26 byte command.  Example:
