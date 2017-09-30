@@ -1,9 +1,10 @@
 import time
-from multiplexer import Multiplexer
+import sys
 
-with Multiplexer() as mp:
-    for i in range(7):
-        print(i)
-        mp.SelectChannel(i)
-        time.sleep(2)
+def _print(string):
+    sys.stdout.write(string + '\r')
+    sys.stdout.flush()
 
+_print('hello')
+time.sleep(2)
+_print('world')
