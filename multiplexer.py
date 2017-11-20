@@ -56,33 +56,33 @@ class Multiplexer:
             exit(1)
 
     def SelectChannel(self, channel):
-        self.ch0.setState(0)
-        self.ch1.setState(0)
-        self.ch2.setState(0)
-        self.ch3.setState(0)
-        self.ch4.setState(0)
-        self.ch5.setState(0)
-        self.ch6.setState(0)
-        self.ch7.setState(0)
+        self.ch0.setState(1)
+        self.ch1.setState(1)
+        self.ch2.setState(1)
+        self.ch3.setState(1)
+        self.ch4.setState(1)
+        self.ch5.setState(1)
+        self.ch6.setState(1)
+        self.ch7.setState(1)
 
         if channel < 0:
             return
         if channel == 0:
-            self.ch0.setState(1)
+            self.ch0.setState(0)
         if channel == 1:
-            self.ch1.setState(1)
+            self.ch1.setState(0)
         if channel == 2:
-            self.ch2.setState(1)
+            self.ch2.setState(0)
         if channel == 3:
-            self.ch3.setState(1)
+            self.ch3.setState(0)
         if channel == 4:
-            self.ch4.setState(1)
+            self.ch4.setState(0)
         if channel == 5:
-            self.ch5.setState(1)
+            self.ch5.setState(0)
         if channel == 6:
-            self.ch6.setState(1)
+            self.ch6.setState(0)
         if channel == 7:
-            self.ch7.setState(1)
+            self.ch7.setState(0)
 
     def close(self):
         try:
