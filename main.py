@@ -4,7 +4,7 @@ import bkload
 import datetime
 
 
-DELAY_MINUTES = 1
+DELAY_MINUTES = 15
 IV_POINTS = 128
 IV_SWEEPTIME = 5        #seconds
 COMPORT = '/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0'
@@ -24,7 +24,7 @@ def store_iv_curves(iv, timestamp):
 mp = Multiplexer()
 mp.SelectChannel(-1)
 while True:
-    time.sleep(DELAY_MINUTES * 30)
+    time.sleep(DELAY_MINUTES * 60)
     
     mp.SelectChannel(0)
     time.sleep(10)
