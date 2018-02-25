@@ -1,41 +1,68 @@
-import time
 from multiplexer import Multiplexer
 import bkload
 import datetime
+import config as cfg
+import private
+import logging
+import os
 
 
-DELAY_MINUTES = 15
-IV_POINTS = 128
-IV_SWEEPTIME = 5        #seconds
-COMPORT = '/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0'
-print "starting IV"
-t = bkload.IvTracer(COMPORT)
-print "stop IV"
+LOG_FOLDER = './log'
+INFLUX_FOLDER = './influx_lines'
+DATE_FILENAME = datetime.datetime.now().strftime("%Y%m%d")
+
 
 def store_iv_curves(iv, timestamp):
-    with open("/home/pi/powerlogs/" + timestamp.strftime("%Y%m%d%H%M%S"), "w") as f:
-        #f.write("timestamp UTC: ", timestamp, "\n")
-        #f.write("timestamp epoch: ", calendar.timegm(timestamp), "\n")
-        f.write("voltage\tcurrent\tpower\n")
-        for d in iv:
-            f.write("%f\t%f\t%f\n" % (d['voltage'], d['current'], d['power']))
-        f.close()
+    try:
+        with open(os.path.join(INFLUX_FOLDER, DATE_FILENAME + '.line', 'a') as f:
+            f.write("voltage\tcurrent\tpower\n")
+            for d in iv:
+                f.write("%f\t%f\t%f\n" % (d['voltage'], d['current'], d['power']))
+            f.close()
 
-mp = Multiplexer()
-mp.SelectChannel(-1)
-while True:
-    time.sleep(DELAY_MINUTES * 60)
-    
-    mp.SelectChannel(0)
-    time.sleep(10)
-    timestamp = datetime.datetime.now()
-    d1 = t.measure_iv(IV_POINTS, IV_SWEEPTIME/IV_POINTS)
-    store_iv_curves(d1,timestamp)
-    
-    mp.SelectChannel(1)
-    time.sleep(10)
-    timestamp = datetime.datetime.now()
-    d2 = t.measure_iv(IV_POINTS, IV_SWEEPTIME/IV_POINTS)
-    mp.SelectChannel(-1)
-    store_iv_curves(d2,timestamp)
+    except Exception, e:
+        print(e)
+        logging.exception(e)
+        raise SystemExit(0)
 
+
+def setup_folders(log_dir, influx_dir):
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    if not os.path.exists(influx_dir):
+        os.makedirs(influx_dir)
+
+
+def main():
+    setup_folders(LOG_FOLDER, INFLUX_FOLDER)
+    logging.basicConfig(filename=os.path.join(LOG_FOLDER, DATE_FILENAME + '.log'),
+                        level=logging.INFO)
+    logging.info('start mppmon')
+
+    try:
+        t = bkload.IvTracer(private.COMPORT)
+    except Exception, e:
+        print(e)
+        logging.error(e)
+        raise SystemExit(0)
+
+    try:
+        mp = Multiplexer()
+        mp.SelectChannel(-1)
+    except Exception, e:
+        print(e)
+        logging.exception(e)
+        raise SystemExit(0)
+
+    for k in cfg.sweep_settings.keys():
+        p = cfg.sweep_settings[k]
+        if p.enabled:
+            mp.SelectChannel(p.channel)
+
+            d = t.measure_iv(p.points, p.sweeptime/p.points)
+            store_iv_curves(d, datetime.datetime.now())
+
+
+if __name__ == '__main__':
+    main()

@@ -1,10 +1,3 @@
-import time
-import sys
+import config as cfg
 
-def _print(string):
-    sys.stdout.write(string + '\r')
-    sys.stdout.flush()
-
-_print('hello')
-time.sleep(2)
-_print('world')
+print cfg.sweep_settings['module1']

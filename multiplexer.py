@@ -1,10 +1,11 @@
 from Phidget22.Devices.DigitalOutput import *
 from Phidget22.Net import *
+import time
 
 
 class Multiplexer:
     def __init__(self):
-	print('init mp')
+        print('init mp')
         try:
             self.ch0 = DigitalOutput()
             self.ch1 = DigitalOutput()
@@ -17,8 +18,7 @@ class Multiplexer:
         except RuntimeError as e:
             print("Runtime Exception %s" % e.details)
             print("Press Enter to Exit...\n")
-            readin = sys.stdin.read(1)
-            exit(1)
+            raise
 
         def ErrorEvent(self, e, eCode, description):
             print("Error %i : %s" % (eCode, description))
@@ -52,8 +52,7 @@ class Multiplexer:
         except PhidgetException as e:
             print("Phidget Exception %i: %s" % (e.code, e.details))
             print("Press Enter to Exit...\n")
-            readin = sys.stdin.read(1)
-            exit(1)
+            raise
 
     def SelectChannel(self, channel):
         self.ch0.setState(0)
@@ -84,6 +83,8 @@ class Multiplexer:
         if channel == 7:
             self.ch7.setState(1)
 
+        time.sleep(10)
+
     def close(self):
         try:
             self.ch0.close()
@@ -97,6 +98,5 @@ class Multiplexer:
         except PhidgetException as e:
             print("Phidget Exception %i: %s" % (e.code, e.details))
             print("Press Enter to Exit...\n")
-            readin = sys.stdin.read(1)
-            exit(1)
+            raise
         print("Closed DigitalOutput device")

@@ -50,7 +50,7 @@ class IvTracer:
         start = self.get_voc()
         print('start: %f' % (start))
         if start < 3:
-	    print('voc too low')
+            print('voc too low')
             return {}
         step = start / points
         print('step: %f' % (step))
@@ -65,8 +65,6 @@ class IvTracer:
         self.off()
         self.set_voltage(self.MaxVoltage)
         return result
-
-
 
     def on(self):
         self.load.TurnLoadOn()
