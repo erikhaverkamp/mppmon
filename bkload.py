@@ -26,8 +26,7 @@ class IvTracer:
         s = self.load.GetInputValues()
         vals = s.split('\t')
         return {'voltage': float(vals[0].split(' ')[0]),
-                'current': float(vals[1].split(' ')[0]),
-                'power': float(vals[2].split(' ')[0])}
+                'current': float(vals[1].split(' ')[0])}
 
     def set_voltage(self, voltage):
         self.load.SetCVVoltage(voltage)

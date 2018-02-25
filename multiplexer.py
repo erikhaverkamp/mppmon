@@ -85,6 +85,9 @@ class Multiplexer:
 
         time.sleep(10)
 
+    def ChannelsOff(self):
+        self.SelectChannel(-1)
+
     def close(self):
         try:
             self.ch0.close()
