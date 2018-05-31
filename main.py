@@ -74,10 +74,10 @@ def main():
 
     for k in cfg.sweep_settings.keys():
         p = cfg.sweep_settings[k]
-        if p.enabled:
-            mp.SelectChannel(p.channel)
-            d = t.measure_iv(p.points, p.sweeptime/p.points)
-            store_iv_curve(d, z.number_to_words(p.channel+1), datetime.datetime.now())
+        if p['enabled']:
+            mp.SelectChannel(p['channel'])
+            d = t.measure_iv(p['points'], p['sweeptime']/p['points'])
+            store_iv_curve(d, z.number_to_words(p['channel']+1), datetime.datetime.now())
 
 
 if __name__ == '__main__':
