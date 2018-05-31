@@ -55,7 +55,7 @@ def main():
                         level=logging.INFO)
     logging.info('start mppmon')
 
-    store_iv_curve(iv_curve_sample.curve, p.number_to_words(5), datetime.datetime.now())
+    #store_iv_curve(iv_curve_sample.curve, z.number_to_words(5), datetime.datetime.now())
 
     try:
         t = bkload.IvTracer(private.COMPORT)
