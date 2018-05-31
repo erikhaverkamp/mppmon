@@ -49,7 +49,7 @@ def setup_folders(log_dir, influx_dir):
 
 
 def main():
-    p = inflect.engine()
+    z = inflect.engine()
     setup_folders(LOG_FOLDER, INFLUX_FOLDER)
     logging.basicConfig(filename=os.path.join(LOG_FOLDER, DATE_FILENAME + '.log'),
                         level=logging.INFO)
@@ -77,7 +77,7 @@ def main():
         if p.enabled:
             mp.SelectChannel(p.channel)
             d = t.measure_iv(p.points, p.sweeptime/p.points)
-            store_iv_curve(d, p.number_to_words(p.channel+1), datetime.datetime.now())
+            store_iv_curve(d, z.number_to_words(p.channel+1), datetime.datetime.now())
 
 
 if __name__ == '__main__':
